@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Bank - Transaction History</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #d1281b 0%, #d1c23c 50%, #000000 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        .history-header {
+            background: linear-gradient(135deg, #312222 0%, #990d0d 100%);
+            color: rgb(255, 255, 255);
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffff00, #ff0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-weight: bold;
+            margin-right: 15px;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .history-container {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .history-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff0000, #000000);
+            border-radius: 20px;
+            z-index: -1;
+            padding: 3px;
+        }
+        .history-title {
+            color: #000000;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.3);
+        }
+        .table {
+            background: transparent;
+            margin-bottom: 0;
+        }
+        .table thead th {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: #ffffff;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            padding: 15px;
+            text-align: center;
+        }
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+        .table tbody tr:hover {
+            background: rgba(255, 0, 0, 0.05);
+            transform: scale(1.01);
+        }
+        .table tbody td {
+            border: none;
+            padding: 15px;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: 500;
+        }
+        .table tbody tr:nth-child(even) {
+            background: rgba(248, 248, 248, 0.5);
+        }
+        .transaction-type {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .type-deposit {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+        .type-withdraw {
+            background: linear-gradient(135deg, #dc3545, #fd7e14);
+            color: white;
+        }
+        .type-payment {
+            background: linear-gradient(135deg, #6f42c1, #e83e8c);
+            color: white;
+        }
+        .amount-positive {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .amount-negative {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .back-btn {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            border: none;
+            border-radius: 20px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 0, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        .back-btn:hover::before {
+            left: 100%;
+        }
+        .back-btn:hover {
+            background: linear-gradient(135deg, #cc0000 0%, #ff0000 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.5);
+        }
+        .summary-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #ff0000;
+        }
+        .summary-title {
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .summary-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .stat-item {
+            flex: 1;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff0000;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="history-header">
+        <div class="container">
+            <div class="row user-info">
+                <div class="col-md-8 d-flex align-items-center">
+                    <div class="user-avatar">
+                        EA
+                    </div>
+                    <div>
+                        <h4 class="mb-0">Eduardo Amaya</h4>
+                        <small>Cuenta: ****1234</small>
+                    </div>
+                </div>
+                <div class="col-md-4 text-right">
+                    <small>Saldo Actual: $2,450.00</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="text-center mb-4" style="color: #000000; text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.3); font-weight: bold;">Pokemon Bank</h2>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <h5 class="summary-title">Resumen de Transacciones</h5>
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <div class="stat-value">$1,250.00</div>
+                    <div class="stat-label">Depositos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">$850.00</div>
+                    <div class="stat-label">Retiros</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">$150.00</div>
+                    <div class="stat-label">Pagos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-container">
+            <h3 class="history-title">Historial de Transacciones</h3>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>18 Mar, 2026</td>
+                            <td><span class="transaction-type type-deposit">Depósito</span></td>
+                            <td>Depósito en efectivo</td>
+                            <td class="amount-positive">+$500.00</td>
+                        </tr>
+                        <tr>
+                            <td>17 Mar, 2026</td>
+                            <td><span class="transaction-type type-withdraw">Retiro</span></td>
+                            <td>Retiro en cajero</td>
+                            <td class="amount-negative">-$200.00</td>
+                        </tr>
+                        <tr>
+                            <td>16 Mar, 2026</td>
+                            <td><span class="transaction-type type-payment">Pago</span></td>
+                            <td>Pago de servicios</td>
+                            <td class="amount-negative">-$75.00</td>
+                        </tr>
+                        <tr>
+                            <td>15 Mar, 2026</td>
+                            <td><span class="transaction-type type-deposit">Depósito</span></td>
+                            <td>Transferencia recibida</td>
+                            <td class="amount-positive">+$1,000.00</td>
+                        </tr>
+                        <tr>
+                            <td>14 Mar, 2026</td>
+                            <td><span class="transaction-type type-withdraw">Retiro</span></td>
+                            <td>Retiro en sucursal</td>
+                            <td class="amount-negative">-$150.00</td>
+                        </tr>
+                        <tr>
+                            <td>13 Mar, 2026</td>
+                            <td><span class="transaction-type type-payment">Pago</span></td>
+                            <td>Pago de tarjeta de crédito</td>
+                            <td class="amount-negative">-$300.00</td>
+                        </tr>
+                        <tr>
+                            <td>12 Mar, 2026</td>
+                            <td><span class="transaction-type type-deposit">Depósito</span></td>
+                            <td>Depósito por nómina</td>
+                            <td class="amount-positive">+$2,500.00</td>
+                        </tr>
+                        <tr>
+                            <td>11 Mar, 2026</td>
+                            <td><span class="transaction-type type-withdraw">Retiro</span></td>
+                            <td>Retiro en cajero</td>
+                            <td class="amount-negative">-$100.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <div class="d-flex justify-content-center gap-3">
+                <a href="atm-analytics.html" class="back-btn" style="text-decoration: none; color: inherit; display: inline-block; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                    <i class="fas fa-chart-bar"></i> Ver Analytics
+                </a>
+                <a href="atm-dashboard.html" class="back-btn" style="text-decoration: none; color: inherit; display: inline-block;">
+                    <i class="fas fa-arrow-left"></i> Volver al Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

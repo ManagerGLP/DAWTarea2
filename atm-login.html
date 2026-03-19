@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Bank - Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        .atm-screen {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #d1281b 0%, #d1c23c 50%, #000000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .atm-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 4px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+        }
+        .atm-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff0000, #000000);
+            border-radius: 25px;
+            z-index: -1;
+            padding: 4px;
+        }
+        .atm-title {
+            text-align: center;
+            color: #000000;
+            font-weight: bold;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(255, 0, 0, 0.3);
+        }
+        .pin-input {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .pin-display {
+            background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+            border: 2px solid #ff0000;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000000;
+            text-align: center;
+            letter-spacing: 0.5rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .key-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border: 2px solid #ff0000;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff0000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2);
+        }
+        .key-btn:hover {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: #ffffff;
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.4);
+        }
+        .key-btn:active {
+            transform: scale(0.95);
+        }
+        .login-btn {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            border: none;
+            border-radius: 20px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 0, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        .login-btn:hover::before {
+            left: 100%;
+        }
+        .login-btn:hover {
+            background: linear-gradient(135deg, #cc0000 0%, #ff0000 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.5);
+        }
+        .bank-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .bank-logo h1 {
+            color: #000000;
+            font-weight: bold;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.3);
+            margin: 0;
+        }
+        .pin-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .pin-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        .pin-dot.active {
+            background: #ff0000;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="atm-screen">
+        <div class="atm-card">
+            <div class="bank-logo">
+                <h1>Pokemon Bank</h1>
+            </div>
+
+            <h2 class="atm-title">Ingresa tu PIN</h2>
+
+            <div class="pin-input">
+                <input type="password" id="pinInput" class="pin-display" maxlength="4" readonly>
+                <div class="pin-dots">
+                    <div class="pin-dot" id="dot1"></div>
+                    <div class="pin-dot" id="dot2"></div>
+                    <div class="pin-dot" id="dot3"></div>
+                    <div class="pin-dot" id="dot4"></div>
+                </div>
+            </div>
+
+            <div class="keypad">
+                <div class="key-btn" data-value="1">1</div>
+                <div class="key-btn" data-value="2">2</div>
+                <div class="key-btn" data-value="3">3</div>
+                <div class="key-btn" data-value="4">4</div>
+                <div class="key-btn" data-value="5">5</div>
+                <div class="key-btn" data-value="6">6</div>
+                <div class="key-btn" data-value="7">7</div>
+                <div class="key-btn" data-value="8">8</div>
+                <div class="key-btn" data-value="9">9</div>
+                <div class="key-btn clear-btn" data-value="clear">
+                    <i class="fas fa-backspace"></i>
+                </div>
+                <div class="key-btn" data-value="0">0</div>
+                <div class="key-btn enter-btn" data-value="enter">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+
+            <button class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+            </button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        let pin = '';
+        const pinInput = document.getElementById('pinInput');
+        const pinDots = document.querySelectorAll('.pin-dot');
+
+        document.querySelectorAll('.key-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+
+                if (value >= '0' && value <= '9' && pin.length < 4) {
+                    pin += value;
+                    updateDisplay();
+                } else if (value === 'clear') {
+                    pin = pin.slice(0, -1);
+                    updateDisplay();
+                } else if (value === 'enter') {
+                    if (pin.length === 4) {
+                        alert('¡Login exitoso! Redirigiendo al dashboard...');
+                        window.location.href = 'atm-dashboard.html';
+                    } else {
+                        alert('Por favor ingresa un PIN de 4 dígitos completo');
+                    }
+                }
+            });
+        });
+
+        function updateDisplay() {
+            pinInput.value = '*'.repeat(pin.length);
+
+            pinDots.forEach((dot, index) => {
+                if (index < pin.length) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        document.querySelector('.login-btn').addEventListener('click', function() {
+            if (pin.length === 4) {
+                alert('¡Login exitoso! Redirigiendo al dashboard...');
+                window.location.href = 'atm-dashboard.html';
+            } else {
+                alert('Por favor ingresa un PIN de 4 dígitos');
+            }
+        });
+    </script>
+</body>
+</html>
