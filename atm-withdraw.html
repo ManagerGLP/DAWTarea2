@@ -45,8 +45,22 @@
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            max-width: 520px;
-            margin: 0 auto 30px;
+            margin-bottom: 30px;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+        .withdraw-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff0000, #000000);
+            border-radius: 20px;
+            z-index: -1;
+            padding: 3px;
         }
         .page-title {
             color: #000000;
@@ -54,6 +68,11 @@
             text-align: center;
             margin-bottom: 25px;
             text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.3);
+        }
+        .section-title {
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 18px;
         }
         .form-control {
             border-radius: 12px;
@@ -75,6 +94,49 @@
         }
         .withdraw-btn:hover {
             background: linear-gradient(135deg, #cc0000 0%, #ff0000 100%);
+        }
+        .quick-amount {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border: 2px solid #ff0000;
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            color: #ff0000;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .quick-amount:hover {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(255, 0, 0, 0.25);
+        }
+        .info-box {
+            background: rgba(255, 255, 255, 0.92);
+            border-left: 5px solid #ff0000;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .info-value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ff0000;
+        }
+        .recent-item {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #000000;
+        }
+        .amount-negative {
+            color: #dc3545;
+            font-weight: bold;
         }
         .back-link {
             display: inline-block;
@@ -105,25 +167,90 @@
     <div class="container">
         <h2 class="page-title">Retirar Dinero</h2>
 
-        <div class="withdraw-card">
-            <div class="form-group">
-                <label for="withdrawAmount">Monto a retirar</label>
-                <input type="number" class="form-control" id="withdrawAmount" placeholder="Ejemplo: 100.00">
+        <div class="row">
+            <div class="col-lg-7 mb-4">
+                <div class="withdraw-card">
+                    <h5 class="section-title">Retiro rapido</h5>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <div class="quick-amount">$20</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="quick-amount">$50</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="quick-amount">$100</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="withdrawAmount">Monto a retirar</label>
+                        <input type="number" class="form-control" id="withdrawAmount" placeholder="Ejemplo: 100.00">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="withdrawMethod">Metodo</label>
+                        <select class="form-control" id="withdrawMethod">
+                            <option>Cajero automatico</option>
+                            <option>Ventanilla</option>
+                            <option>Retiro sin tarjeta</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="withdrawNote">Descripcion</label>
+                        <input type="text" class="form-control" id="withdrawNote" placeholder="Retiro en cajero principal">
+                    </div>
+
+                    <button type="button" class="withdraw-btn">
+                        <i class="fas fa-money-bill-wave mr-2"></i>Confirmar retiro
+                    </button>
+
+                    <div class="text-center">
+                        <a href="atm-dashboard.html" class="back-link">
+                            <i class="fas fa-arrow-left mr-1"></i>Volver al Dashboard
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="withdrawNote">Descripcion</label>
-                <input type="text" class="form-control" id="withdrawNote" placeholder="Retiro en cajero">
-            </div>
+            <div class="col-lg-5 mb-4">
+                <div class="withdraw-card">
+                    <h5 class="section-title">Resumen</h5>
 
-            <button type="button" class="withdraw-btn">
-                <i class="fas fa-money-bill-wave mr-2"></i>Confirmar retiro
-            </button>
+                    <div class="info-box">
+                        <div class="text-muted">Saldo disponible</div>
+                        <div class="info-value">$2,450.00</div>
+                    </div>
 
-            <div class="text-center">
-                <a href="atm-dashboard.html" class="back-link">
-                    <i class="fas fa-arrow-left mr-1"></i>Volver al Dashboard
-                </a>
+                    <div class="info-box">
+                        <div class="text-muted">Limite diario restante</div>
+                        <div class="info-value">$700.00</div>
+                    </div>
+
+                    <h6 class="section-title mt-4">Retiros recientes</h6>
+
+                    <div class="recent-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>Cajero Central</strong>
+                                <div class="text-muted">26 Mar, 2026</div>
+                            </div>
+                            <div class="amount-negative">-$100.00</div>
+                        </div>
+                    </div>
+
+                    <div class="recent-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>Ventanilla</strong>
+                                <div class="text-muted">19 Mar, 2026</div>
+                            </div>
+                            <div class="amount-negative">-$60.00</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
