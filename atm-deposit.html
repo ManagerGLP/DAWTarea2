@@ -3,36 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deposito</title>
+    <title>Pokemon Bank - Deposito</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #d1281b 0%, #d1c23c 50%, #000000 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .deposit-box {
+            background: #ffffff;
+            max-width: 520px;
+            margin: 60px auto;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+        }
+        .deposit-title {
+            text-align: center;
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #222222;
+        }
+        .form-control {
+            border-radius: 12px;
+            border: 2px solid #dddddd;
+            padding: 12px;
+        }
+        .form-control:focus {
+            border-color: #cc0000;
+            box-shadow: 0 0 0 0.2rem rgba(204, 0, 0, 0.15);
+        }
+        .deposit-btn {
+            width: 100%;
+            border: none;
+            border-radius: 14px;
+            padding: 12px;
+            font-weight: bold;
+            color: #ffffff;
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+        }
+        .deposit-btn:hover {
+            background: linear-gradient(135deg, #cc0000 0%, #aa0000 100%);
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #000000;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-    <h1>Deposito</h1>
+    <div class="container">
+        <div class="deposit-box">
+            <h1 class="deposit-title">Deposito</h1>
 
-    <form>
-        <div>
-            <label for="depositAmount">Monto a depositar</label>
-            <input type="number" id="depositAmount" name="depositAmount" placeholder="100.00">
+            <form>
+                <div class="form-group">
+                    <label for="depositAmount">Monto a depositar</label>
+                    <input type="number" class="form-control" id="depositAmount" name="depositAmount" placeholder="100.00">
+                </div>
+
+                <div class="form-group">
+                    <label for="depositType">Tipo de deposito</label>
+                    <select class="form-control" id="depositType" name="depositType">
+                        <option>Efectivo</option>
+                        <option>Cheque</option>
+                        <option>Transferencia</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="depositNote">Descripcion</label>
+                    <input type="text" class="form-control" id="depositNote" name="depositNote" placeholder="Deposito en ventanilla">
+                </div>
+
+                <button type="button" class="deposit-btn">Confirmar deposito</button>
+            </form>
+
+            <a href="atm-dashboard.html" class="back-link">Volver al dashboard</a>
         </div>
-
-        <div>
-            <label for="depositType">Tipo de deposito</label>
-            <select id="depositType" name="depositType">
-                <option>Efectivo</option>
-                <option>Cheque</option>
-                <option>Transferencia</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="depositNote">Descripcion</label>
-            <input type="text" id="depositNote" name="depositNote" placeholder="Deposito en ventanilla">
-        </div>
-
-        <button type="button">Confirmar deposito</button>
-    </form>
-
-    <p>
-        <a href="atm-dashboard.html">Volver al dashboard</a>
-    </p>
+    </div>
 </body>
 </html>
