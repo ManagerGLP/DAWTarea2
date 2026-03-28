@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Bank - Balance</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #d1281b 0%, #d1c23c 50%, #000000 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        .balance-header {
+            background: linear-gradient(135deg, #312222 0%, #990d0d 100%);
+            color: #ffffff;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffff00, #ff0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-weight: bold;
+            margin-right: 15px;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .page-title {
+            color: #000000;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.3);
+        }
+        .balance-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff0000, #000000);
+            border-radius: 20px;
+            z-index: -1;
+            padding: 3px;
+        }
+        .section-title {
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+        .main-balance {
+            text-align: center;
+            padding: 20px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #fff4f4 0%, #ffffff 100%);
+            margin-bottom: 25px;
+        }
+        .main-balance small {
+            display: block;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        .main-balance h2 {
+            color: #ff0000;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0 0;
+            text-shadow: none;
+        }
+        .detail-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 5px solid #ff0000;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .detail-label {
+            color: #666666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .detail-value {
+            color: #000000;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        .movement-item {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #000000;
+        }
+        .amount-positive {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .amount-negative {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .back-btn {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            border: none;
+            border-radius: 20px;
+            padding: 12px 24px;
+            color: #ffffff;
+            font-weight: bold;
+            display: inline-block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            color: #ffffff;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.35);
+        }
+    </style>
+</head>
+<body>
+    <div class="balance-header">
+        <div class="container">
+            <div class="row user-info">
+                <div class="col-md-8 d-flex align-items-center">
+                    <div class="user-avatar">EA</div>
+                    <div>
+                        <h4 class="mb-0">Eduardo Amaya</h4>
+                        <small>Cuenta: ****1234</small>
+                    </div>
+                </div>
+                <div class="col-md-4 text-right">
+                    <small>Ultima actualizacion: Hoy, 10:45 AM</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Balance de Cuenta</h1>
+
+        <div class="row">
+            <div class="col-lg-7 mb-4">
+                <div class="balance-card">
+                    <div class="main-balance">
+                        <small>Saldo disponible</small>
+                        <h2>$2,450.00</h2>
+                    </div>
+
+                    <h5 class="section-title">Detalles de la cuenta</h5>
+
+                    <div class="detail-box">
+                        <div class="detail-label">Cuenta principal</div>
+                        <div class="detail-value">Ahorro Personal</div>
+                    </div>
+
+                    <div class="detail-box">
+                        <div class="detail-label">Numero de cuenta</div>
+                        <div class="detail-value">****1234</div>
+                    </div>
+
+                    <div class="detail-box">
+                        <div class="detail-label">Saldo retenido</div>
+                        <div class="detail-value">$120.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 mb-4">
+                <div class="balance-card">
+                    <h5 class="section-title">Movimientos recientes</h5>
+
+                    <div class="movement-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>Deposito</strong>
+                                <div class="text-muted">27 Mar, 2026</div>
+                            </div>
+                            <div class="amount-positive">+$150.00</div>
+                        </div>
+                    </div>
+
+                    <div class="movement-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>Retiro</strong>
+                                <div class="text-muted">26 Mar, 2026</div>
+                            </div>
+                            <div class="amount-negative">-$100.00</div>
+                        </div>
+                    </div>
+
+                    <div class="movement-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>Pago de servicios</strong>
+                                <div class="text-muted">25 Mar, 2026</div>
+                            </div>
+                            <div class="amount-negative">-$63.40</div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="atm-dashboard.html" class="back-btn">
+                            <i class="fas fa-arrow-left mr-2"></i>Volver al Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
