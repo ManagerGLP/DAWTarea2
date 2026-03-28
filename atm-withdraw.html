@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Bank - Retiro</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #d1281b 0%, #d1c23c 50%, #000000 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        .withdraw-header {
+            background: linear-gradient(135deg, #312222 0%, #990d0d 100%);
+            color: #ffffff;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffff00, #ff0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-weight: bold;
+            margin-right: 15px;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .withdraw-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            max-width: 520px;
+            margin: 0 auto 30px;
+        }
+        .page-title {
+            color: #000000;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.3);
+        }
+        .form-control {
+            border-radius: 12px;
+            border: 2px solid #d9d9d9;
+            padding: 12px;
+        }
+        .form-control:focus {
+            border-color: #ff0000;
+            box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.15);
+        }
+        .withdraw-btn {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            border: none;
+            border-radius: 18px;
+            padding: 12px 20px;
+            color: #ffffff;
+            font-weight: bold;
+            width: 100%;
+        }
+        .withdraw-btn:hover {
+            background: linear-gradient(135deg, #cc0000 0%, #ff0000 100%);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #000000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="withdraw-header">
+        <div class="container">
+            <div class="row user-info">
+                <div class="col-md-8 d-flex align-items-center">
+                    <div class="user-avatar">EA</div>
+                    <div>
+                        <h4 class="mb-0">Eduardo Amaya</h4>
+                        <small>Cuenta: ****1234</small>
+                    </div>
+                </div>
+                <div class="col-md-4 text-right">
+                    <small>Saldo disponible: $2,450.00</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="page-title">Retirar Dinero</h2>
+
+        <div class="withdraw-card">
+            <div class="form-group">
+                <label for="withdrawAmount">Monto a retirar</label>
+                <input type="number" class="form-control" id="withdrawAmount" placeholder="Ejemplo: 100.00">
+            </div>
+
+            <div class="form-group">
+                <label for="withdrawNote">Descripcion</label>
+                <input type="text" class="form-control" id="withdrawNote" placeholder="Retiro en cajero">
+            </div>
+
+            <button type="button" class="withdraw-btn">
+                <i class="fas fa-money-bill-wave mr-2"></i>Confirmar retiro
+            </button>
+
+            <div class="text-center">
+                <a href="atm-dashboard.html" class="back-link">
+                    <i class="fas fa-arrow-left mr-1"></i>Volver al Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
