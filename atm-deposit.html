@@ -12,19 +12,66 @@
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .deposit-box {
-            background: #ffffff;
-            max-width: 520px;
-            margin: 60px auto;
+        .deposit-header {
+            background: linear-gradient(135deg, #312222 0%, #990d0d 100%);
+            color: #ffffff;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffff00, #ff0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-weight: bold;
+            margin-right: 15px;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .deposit-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border-radius: 20px;
             padding: 30px;
-            border-radius: 18px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+        .deposit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff0000, #000000);
+            border-radius: 20px;
+            z-index: -1;
+            padding: 3px;
         }
         .deposit-title {
             text-align: center;
             color: #000000;
             font-weight: bold;
             margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.3);
+        }
+        .section-title {
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 18px;
         }
         .form-group label {
             font-weight: 600;
@@ -51,6 +98,49 @@
         .deposit-btn:hover {
             background: linear-gradient(135deg, #cc0000 0%, #aa0000 100%);
         }
+        .quick-amount {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border: 2px solid #ff0000;
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            color: #ff0000;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .quick-amount:hover {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(255, 0, 0, 0.25);
+        }
+        .info-box {
+            background: rgba(255, 255, 255, 0.92);
+            border-left: 5px solid #ff0000;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .info-value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ff0000;
+        }
+        .recent-item {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #28a745;
+        }
+        .amount-positive {
+            color: #28a745;
+            font-weight: bold;
+        }
         .back-link {
             display: block;
             text-align: center;
@@ -61,34 +151,107 @@
     </style>
 </head>
 <body>
+    <div class="deposit-header">
+        <div class="container">
+            <div class="row user-info">
+                <div class="col-md-8 d-flex align-items-center">
+                    <div class="user-avatar">EA</div>
+                    <div>
+                        <h4 class="mb-0">Eduardo Amaya</h4>
+                        <small>Cuenta: ****1234</small>
+                    </div>
+                </div>
+                <div class="col-md-4 text-right">
+                    <small>Saldo disponible: $2,450.00</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
-        <div class="deposit-box">
-            <h1 class="deposit-title">Deposito</h1>
+        <h1 class="deposit-title">Depositar Dinero</h1>
 
-            <form>
-                <div class="form-group">
-                    <label for="depositAmount">Monto a depositar</label>
-                    <input type="number" class="form-control" id="depositAmount" name="depositAmount" placeholder="100.00">
+        <div class="row">
+            <div class="col-lg-7 mb-4">
+                <div class="deposit-card">
+                    <h5 class="section-title">Deposito rapido</h5>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <div class="quick-amount">$50</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="quick-amount">$100</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="quick-amount">$200</div>
+                        </div>
+                    </div>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="depositAmount">Monto a depositar</label>
+                            <input type="number" class="form-control" id="depositAmount" name="depositAmount" placeholder="100.00">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="depositType">Tipo de deposito</label>
+                            <select class="form-control" id="depositType" name="depositType">
+                                <option>Efectivo</option>
+                                <option>Cheque</option>
+                                <option>Transferencia</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="depositNote">Descripcion</label>
+                            <input type="text" class="form-control" id="depositNote" name="depositNote" placeholder="Deposito en ventanilla">
+                        </div>
+
+                        <button type="button" class="deposit-btn">Confirmar deposito</button>
+                    </form>
+
+                    <a href="atm-dashboard.html" class="back-link">Volver al dashboard</a>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="depositType">Tipo de deposito</label>
-                    <select class="form-control" id="depositType" name="depositType">
-                        <option>Efectivo</option>
-                        <option>Cheque</option>
-                        <option>Transferencia</option>
-                    </select>
+            <div class="col-lg-5 mb-4">
+                <div class="deposit-card">
+                    <h5 class="section-title">Resumen</h5>
+
+                    <div class="info-box">
+                        <div class="text-muted">Saldo actual</div>
+                        <div class="info-value">$2,450.00</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="text-muted">Meta de ahorro del mes</div>
+                        <div class="info-value">$500.00</div>
+                    </div>
+
+                    <h6 class="section-title mt-4">Depositos recientes</h6>
+
+                    <div class="recent-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>Deposito en efectivo</strong>
+                                <div class="text-muted">27 Mar, 2026</div>
+                            </div>
+                            <div class="amount-positive">+$150.00</div>
+                        </div>
+                    </div>
+
+                    <div class="recent-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>Transferencia recibida</strong>
+                                <div class="text-muted">20 Mar, 2026</div>
+                            </div>
+                            <div class="amount-positive">+$300.00</div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="depositNote">Descripcion</label>
-                    <input type="text" class="form-control" id="depositNote" name="depositNote" placeholder="Deposito en ventanilla">
-                </div>
-
-                <button type="button" class="deposit-btn">Confirmar deposito</button>
-            </form>
-
-            <a href="atm-dashboard.html" class="back-link">Volver al dashboard</a>
+            </div>
         </div>
     </div>
 </body>
